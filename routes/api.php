@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\Api\Admin\AdController as AdminAdController;
-use App\Http\Controllers\Api\Admin\CategoryController as AdminCategoryController;
 use App\Http\Controllers\Api\Admin\ProductController as AdminProductController;
 use App\Http\Controllers\Api\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Api\AdController;
@@ -22,13 +21,11 @@ Route::middleware('auth:sanctum')->get('/user', [AuthController::class, 'me']);
 
 // --- Protected admin endpoints ---
 Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
-    Route::get('/categories', [AdminCategoryController::class, 'index']);
-    Route::post('/categories', [AdminCategoryController::class, 'store']);
-
     Route::post('/products', [AdminProductController::class, 'store']);
     Route::post('/products/{id}', [AdminProductController::class, 'update']); // Laravel + multipart -> POST, not PUT
     Route::delete('/products/{id}', [AdminProductController::class, 'destroy']);
     Route::delete('/products/{productId}/images/{imageId}', [AdminProductController::class, 'destroyImage']);
+    Route::post('/products/{productId}/images/{imageId}/primary', [AdminProductController::class, 'setPrimaryImage']);
 
     Route::post('/ads', [AdminAdController::class, 'store']);
     Route::delete('/ads/{id}', [AdminAdController::class, 'destroy']);
