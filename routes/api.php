@@ -28,6 +28,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
     Route::post('/products/{productId}/images/{imageId}/primary', [AdminProductController::class, 'setPrimaryImage']);
 
     Route::post('/ads', [AdminAdController::class, 'store']);
+    Route::post('/ads/reorder', [AdminAdController::class, 'reorder']);
     Route::delete('/ads/{id}', [AdminAdController::class, 'destroy']);
 
     Route::get('/users', [AdminUserController::class, 'index']);

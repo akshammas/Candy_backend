@@ -10,7 +10,7 @@ class Advertisement extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', 'image_path', 'caption', 'button_text'];
+    protected $fillable = ['product_id', 'image_path', 'caption', 'button_text', 'sort_order'];
 
     public function product(): BelongsTo
     {
