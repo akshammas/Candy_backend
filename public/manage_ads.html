@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Manage Ads | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .ads-section { padding: 50px 0 80px; }
+    .form-card {
+      background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      padding: 36px 40px; max-width: 780px; margin: 0 auto 40px;
+    }
+    .form-card h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .subtext { color: #6c757d; margin-bottom: 26px; font-size: .95rem; }
+
+    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 20px; }
+    .pform label:first-of-type { margin-top: 0; }
+    .pform .field-hint { font-weight: 400; color: #6c757d; font-size: .82rem; }
+    .pform .form-control, .pform .form-select {
+      padding: 11px 14px; border-radius: 10px; border: 1.5px solid #dcdfe4;
+    }
+    .pform .form-control:focus, .pform .form-select:focus {
+      border-color: var(--accent-color, #0d6efd);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
+    }
+
+    .form-error {
+      background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
+      font-size: .9rem; margin-bottom: 18px; display: none;
+    }
+    .form-actions { display: flex; gap: 12px; margin-top: 30px; }
+    .btn-save {
+      background: var(--accent-color, #0d6efd); color: #fff; border: none;
+      padding: 13px 30px; border-radius: 50px; font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 8px 22px rgba(0,0,0,.18);
+    }
+    .btn-save:hover:not(:disabled) { transform: translateY(-2px); color: #fff; }
+    .btn-save:disabled { opacity: .7; cursor: not-allowed; }
+    .btn-cancel {
+      background: #fff; color: #212529; border: 1.5px solid #dcdfe4; padding: 13px 26px;
+      border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
+    }
+    .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
+
+    .ads-list-wrap { max-width: 780px; margin: 0 auto; }
+    .ads-list-wrap h2 { font-size: 1.2rem; font-weight: 700; margin-bottom: 18px; }
+    .ad-row {
+      display: flex; align-items: center; gap: 16px; background: #fff; border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,.05); padding: 14px 18px; margin-bottom: 14px;
+      transition: opacity .15s ease, box-shadow .15s ease;
+    }
+    .ad-row.dragging { opacity: .4; }
+    .ad-row.drag-over-top { box-shadow: 0 -3px 0 0 var(--accent-color, #0d6efd), 0 6px 18px rgba(0,0,0,.05); }
+    .ad-row.drag-over-bottom { box-shadow: 0 3px 0 0 var(--accent-color, #0d6efd), 0 6px 18px rgba(0,0,0,.05); }
+    .ad-drag-handle {
+      cursor: grab; color: #adb5bd; font-size: 1.2rem; flex-shrink: 0; touch-action: none; user-select: none;
+    }
+    .ad-drag-handle:active { cursor: grabbing; }
+    .ad-order-btns { display: flex; flex-direction: column; gap: 2px; flex-shrink: 0; }
+    .ad-order-btn {
+      background: #f1f3f6; border: none; border-radius: 6px; width: 26px; height: 22px;
+      color: #495057; font-size: .8rem; line-height: 1; cursor: pointer; display: flex;
+      align-items: center; justify-content: center;
+    }
+    .ad-order-btn:hover:not(:disabled) { background: color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent); color: var(--accent-color, #0d6efd); }
+    .ad-order-btn:disabled { opacity: .3; cursor: not-allowed; }
+    .ad-row img { width: 72px; height: 72px; object-fit: cover; border-radius: 10px; background: #f1f3f6; flex-shrink: 0; }
+    .ad-row-info { flex: 1; min-width: 0; }
+    .ad-row-info p { margin: 0; }
+    .ad-row-caption { font-weight: 600; }
+    .ad-row-meta { color: #6c757d; font-size: .85rem; margin-top: 3px !important; }
+    .ad-delete-btn {
+      background: none; border: none; color: #b3261e; font-weight: 600; font-size: .88rem; cursor: pointer;
+      flex-shrink: 0;
+    }
+    .ad-delete-btn:hover { text-decoration: underline; }
+    .ads-status { text-align: center; padding: 40px 0; color: #6c757d; }
+    .page-status { text-align: center; padding: 60px 0; color: #6c757d; }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li class="breadcrumb-item active current">Manage Ads</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1>Manage Ads</h1>
+        <p>Sponsored cards that appear in the product grid, each linking to one product.</p>
+      </div>
+    </div>
+
+    <section class="ads-section">
+      <div class="container" id="page-root" style="display:none;">
+
+        <div class="form-card">
+          <h1>Add a new ad</h1>
+          <p class="subtext">Fields marked required must be filled in before saving.</p>
+
+          <div class="form-error" id="form-error"></div>
+
+          <form id="ad-form" class="pform" novalidate>
+            <label for="product_id">Links to product <span class="text-danger">*</span></label>
+            <select class="form-select" id="product_id" required>
+              <option value="" disabled selected>Choose a product</option>
+            </select>
+
+            <label for="caption">Caption <span class="field-hint">(optional)</span></label>
+            <input type="text" class="form-control" id="caption" maxlength="200">
+
+            <label for="button_text">Button text <span class="field-hint">(optional, defaults to "Shop Now")</span></label>
+            <input type="text" class="form-control" id="button_text" maxlength="50">
+
+            <label for="image">Image <span class="text-danger">*</span></label>
+            <input type="file" class="form-control" id="image" accept="image/*" required>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-save" id="save-btn">Save ad</button>
+              <a href="admin-dashboard.html" class="btn-cancel">Back to dashboard</a>
+            </div>
+          </form>
+        </div>
+
+        <div class="ads-list-wrap">
+          <h2>Current ads</h2>
+          <p class="field-hint" style="margin-top:-10px; margin-bottom:16px;">Drag a row by its handle to reorder — the top one shows first.</p>
+          <div id="ads-list"></div>
+        </div>
+
+      </div>
+
+      <div class="page-status" id="page-status">Checking session…</div>
+
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       Same conventions as add_product.html / edit_product.html
+       (Sanctum SPA cookie auth):
+       - GET    /api/user                confirm session
+       - GET    /api/products             populate the "links to product" dropdown
+       - GET    /api/ads                  list existing ads
+       - POST   /api/admin/ads            multipart/form-data, creates an ad
+       - DELETE /api/admin/ads/{id}       remove one
+       Mirrors the old FastAPI admin_ads.html (list) + admin_new_ad.html
+       (create form) combined into a single page.
+       ============================================================ -->
+  <script>
+    const API_BASE_URL = ""; // same-origin now — Laravel serves this file directly
+
+    const pageRoot = document.getElementById("page-root");
+    const statusEl = document.getElementById("page-status");
+    const errorBox = document.getElementById("form-error");
+    const form = document.getElementById("ad-form");
+    const saveBtn = document.getElementById("save-btn");
+    const productSelect = document.getElementById("product_id");
+    const adsList = document.getElementById("ads-list");
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function authHeaders(extra = {}) {
+      return { "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "", Accept: "application/json", ...extra };
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+    function hideError() {
+      errorBox.style.display = "none";
+    }
+
+    // products keyed by id, so the ad list can show "Links to: <name>"
+    // without a second round trip per ad.
+    let productsById = {};
+
+    async function loadProductOptions() {
+      const res = await fetch(`${API_BASE_URL}/api/products`);
+      const data = await res.json();
+      const products = data.products || [];
+
+      products.forEach((p) => { productsById[p.id] = p; });
+
+      products.forEach((p) => {
+        const option = document.createElement("option");
+        option.value = p.id;
+        option.textContent = p.name;
+        productSelect.appendChild(option);
+      });
+    }
+
+    function adRowHTML(ad) {
+      const product = productsById[ad.product_id];
+      return `
+        <div class="ad-row" data-id="${ad.id}" draggable="true">
+          <span class="ad-drag-handle" title="Drag to reorder">&#9776;</span>
+          <div class="ad-order-btns">
+            <button type="button" class="ad-order-btn ad-move-up" data-id="${ad.id}" title="Move up">&#9650;</button>
+            <button type="button" class="ad-order-btn ad-move-down" data-id="${ad.id}" title="Move down">&#9660;</button>
+          </div>
+          <img src="${ad.image_url}" alt="${escapeHtml(ad.caption || 'Ad')}">
+          <div class="ad-row-info">
+            <p class="ad-row-caption">${escapeHtml(ad.caption || "(no caption)")}</p>
+            <p class="ad-row-meta">Links to: ${escapeHtml(product ? product.name : `Product #${ad.product_id}`)} · Button: "${escapeHtml(ad.button_text || "Shop Now")}"</p>
+          </div>
+          <button type="button" class="ad-delete-btn" data-id="${ad.id}">Delete</button>
+        </div>`;
+    }
+
+    async function loadAds() {
+      const res = await fetch(`${API_BASE_URL}/api/ads`);
+      const ads = await res.json();
+
+      adsList.innerHTML = ads.length
+        ? ads.map(adRowHTML).join("")
+        : `<p class="ads-status">No ads yet.</p>`;
+
+      adsList.querySelectorAll(".ad-delete-btn").forEach((btn) => {
+        btn.addEventListener("click", () => deleteAd(btn.dataset.id));
+      });
+
+      adsList.querySelectorAll(".ad-move-up").forEach((btn) => {
+        btn.addEventListener("click", () => moveRow(btn.dataset.id, -1));
+      });
+      adsList.querySelectorAll(".ad-move-down").forEach((btn) => {
+        btn.addEventListener("click", () => moveRow(btn.dataset.id, 1));
+      });
+
+      updateOrderButtonStates();
+      wireUpDragAndDrop();
+    }
+
+    function updateOrderButtonStates() {
+      const rows = Array.from(adsList.querySelectorAll(".ad-row"));
+      rows.forEach((row, index) => {
+        row.querySelector(".ad-move-up").disabled = index === 0;
+        row.querySelector(".ad-move-down").disabled = index === rows.length - 1;
+      });
+    }
+
+    function moveRow(id, direction) {
+      const row = adsList.querySelector(`.ad-row[data-id="${id}"]`);
+      if (!row) return;
+
+      const sibling = direction === -1 ? row.previousElementSibling : row.nextElementSibling;
+      if (!sibling) return;
+
+      if (direction === -1) {
+        adsList.insertBefore(row, sibling);
+      } else {
+        adsList.insertBefore(sibling, row);
+      }
+
+      updateOrderButtonStates();
+      persistOrder();
+    }
+
+    // ---------- drag-to-reorder (plain HTML5 drag & drop, no library) ----------
+
+    let draggedRow = null;
+
+    function wireUpDragAndDrop() {
+      const rows = adsList.querySelectorAll(".ad-row");
+
+      rows.forEach((row) => {
+        row.addEventListener("dragstart", () => {
+          draggedRow = row;
+          row.classList.add("dragging");
+        });
+
+        row.addEventListener("dragend", () => {
+          row.classList.remove("dragging");
+          rows.forEach((r) => r.classList.remove("drag-over-top", "drag-over-bottom"));
+          updateOrderButtonStates();
+          persistOrder();
+        });
+
+        row.addEventListener("dragover", (e) => {
+          e.preventDefault();
+          if (!draggedRow || draggedRow === row) return;
+
+          const rect = row.getBoundingClientRect();
+          const isAfter = e.clientY - rect.top > rect.height / 2;
+
+          rows.forEach((r) => r.classList.remove("drag-over-top", "drag-over-bottom"));
+          row.classList.add(isAfter ? "drag-over-bottom" : "drag-over-top");
+
+          if (isAfter) {
+            row.after(draggedRow);
+          } else {
+            row.before(draggedRow);
+          }
+        });
+      });
+    }
+
+    async function persistOrder() {
+      const order = Array.from(adsList.querySelectorAll(".ad-row")).map((row) => Number(row.dataset.id));
+      if (!order.length) return;
+
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/ads/reorder`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders({ "Content-Type": "application/json" }),
+          body: JSON.stringify({ order }),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      } catch (err) {
+        console.error("Reorder failed", err);
+        alert("Couldn't save the new order — reloading the actual saved order.");
+        await loadAds();
+      }
+    }
+
+    async function deleteAd(id) {
+      if (!confirm("Delete this ad?")) return;
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/ads/${id}`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await loadAds();
+      } catch (err) {
+        console.error("Delete ad failed", err);
+        alert("Couldn't delete that ad.");
+      }
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideError();
+
+      if (!form.reportValidity()) return;
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving…";
+
+      try {
+        await ensureCsrfToken();
+
+        const fd = new FormData();
+        fd.append("product_id", productSelect.value);
+        fd.append("caption", document.getElementById("caption").value.trim());
+        fd.append("button_text", document.getElementById("button_text").value.trim());
+        fd.append("image", document.getElementById("image").files[0]);
+
+        const res = await fetch(`${API_BASE_URL}/api/admin/ads`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+          body: fd,
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save the ad. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
+
+        form.reset();
+        await loadAds();
+      } catch (err) {
+        console.error("Save failed", err);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save ad";
+      }
+    });
+
+    async function init() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "login.html";
+          return;
+        }
+
+        statusEl.style.display = "none";
+        pageRoot.style.display = "";
+
+        await ensureCsrfToken();
+        await loadProductOptions();
+        await loadAds();
+      } catch (err) {
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+
+</html>

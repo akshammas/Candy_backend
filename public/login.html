@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Login | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .login-section { display: flex; align-items: center; min-height: 70vh; padding: 60px 0; }
+    .login-card {
+      max-width: 440px; margin: 0 auto; background: #fff; border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,.1); padding: 44px 40px;
+    }
+    .login-card .icon-wrap {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: color-mix(in srgb, var(--accent-color, #0d6efd) 12%, transparent);
+      color: var(--accent-color, #0d6efd);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.4rem; margin-bottom: 20px;
+    }
+    .login-card h1 { font-size: 1.6rem; font-weight: 700; margin-bottom: 8px; }
+    .login-card .subtext { color: #6c757d; margin-bottom: 28px; font-size: .95rem; }
+    .login-card label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; }
+    .login-card .form-control {
+      padding: 12px 16px; border-radius: 10px; border: 1.5px solid #dcdfe4; margin-bottom: 18px;
+    }
+    .login-card .form-control:focus {
+      border-color: var(--accent-color, #0d6efd); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
+    }
+    .login-card .btn-login {
+      width: 100%; background: var(--accent-color, #0d6efd); color: #fff; border: none;
+      padding: 13px; border-radius: 50px; font-weight: 600; transition: transform .2s ease, box-shadow .2s ease;
+      box-shadow: 0 8px 22px rgba(0,0,0,.18);
+    }
+    .login-card .btn-login:hover:not(:disabled) { transform: translateY(-2px); box-shadow: 0 12px 26px rgba(0,0,0,.24); }
+    .login-card .btn-login:disabled { opacity: .7; cursor: not-allowed; }
+    .login-error {
+      background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
+      font-size: .9rem; margin-bottom: 18px; display: none;
+    }
+    .logged-in-card { text-align: center; }
+    .logged-in-card .avatar {
+      width: 64px; height: 64px; border-radius: 50%; background: #f1f3f6; color: #6c757d;
+      display: flex; align-items: center; justify-content: center; font-size: 1.6rem; font-weight: 700;
+      margin: 0 auto 18px;
+    }
+    .btn-logout {
+      background: #fff; color: #212529; border: 1.5px solid #dcdfe4; padding: 12px 28px;
+      border-radius: 50px; font-weight: 600; transition: border-color .2s ease;
+    }
+    .btn-logout:hover { border-color: var(--accent-color, #0d6efd); }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="index.html#about">About</a></li>
+          <li><a href="index.html#services">Services</a></li>
+          <li><a href="products.html">Products</a></li>
+          <li><a href="index.html#team">Capabilities</a></li>
+          <li><a href="index.html#contact">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="index.html#contact">Get a Quote</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active current">Login</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1>Admin Login</h1>
+        <p>Sign in to manage the product catalog.</p>
+      </div>
+    </div>
+
+    <section class="login-section">
+      <div class="container">
+
+        <!-- Login form -->
+        <div class="login-card" id="login-form-card">
+          <div class="icon-wrap"><i class="bi bi-shield-lock-fill"></i></div>
+          <h1>Sign in</h1>
+          <p class="subtext">Use your admin account to continue.</p>
+
+          <div class="login-error" id="login-error"></div>
+
+          <form id="login-form" novalidate autocomplete="on">
+            <label for="email">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required autocomplete="username">
+
+            <label for="password">Password</label>
+            <input type="password" class="form-control" id="password" name="password" required autocomplete="current-password" minlength="8">
+
+            <button type="submit" class="btn-login" id="login-submit">Sign In</button>
+          </form>
+        </div>
+
+        <!-- Logged-in state (shown briefly right before the redirect fires) -->
+        <div class="login-card logged-in-card" id="logged-in-card" style="display:none;">
+          <div class="avatar" id="user-initial"></div>
+          <h1 id="welcome-text">Welcome</h1>
+          <p class="subtext">Taking you to the admin dashboard…</p>
+        </div>
+
+        <!-- Checking session state -->
+        <div class="login-card text-center" id="checking-card">
+          <p class="subtext mb-0">Checking session…</p>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       Auth: talks to the Laravel Sanctum SPA cookie-based endpoints.
+       - GET  /sanctum/csrf-cookie  sets the XSRF-TOKEN cookie (built
+                                     into Sanctum, no custom route needed)
+       - POST /login                verifies credentials, starts a real
+                                     Laravel session (httpOnly cookie —
+                                     JS never touches the session itself)
+       - GET  /api/user              tells us if the current session is valid
+       - POST /logout                ends the session
+       All requests use credentials: 'include' so cookies flow across
+       the frontend/backend origins (backend CORS must allow this exact
+       origin + supports_credentials true — wildcard "*" will not work).
+
+       On success (or if already logged in), this redirects to
+       admin-dashboard.html — the other page in this same frontend,
+       which itself re-checks the session via /api/user.
+       ============================================================ -->
+  <script>
+    // TODO: set this to wherever the Laravel app is actually deployed.
+    const API_BASE_URL = ""; // same-origin now — Laravel serves this file directly
+    const ADMIN_DASHBOARD_URL = "admin-dashboard.html";
+
+    const formCard = document.getElementById("login-form-card");
+    const loggedInCard = document.getElementById("logged-in-card");
+    const checkingCard = document.getElementById("checking-card");
+    const errorBox = document.getElementById("login-error");
+    const form = document.getElementById("login-form");
+    const submitBtn = document.getElementById("login-submit");
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      // Laravel sets this cookie itself when you hit /sanctum/csrf-cookie.
+      // Cookie may already exist from a previous visit; only fetch a fresh
+      // one if it's missing, so we don't needlessly rotate it every load.
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+
+    function hideError() {
+      errorBox.style.display = "none";
+    }
+
+    function redirectToDashboard(user) {
+      checkingCard.style.display = "none";
+      formCard.style.display = "none";
+      loggedInCard.style.display = "";
+      document.getElementById("user-initial").textContent = (user.name || user.email || "?").charAt(0).toUpperCase();
+      document.getElementById("welcome-text").textContent = `Welcome, ${user.name || user.email}`;
+      window.location.href = ADMIN_DASHBOARD_URL;
+    }
+
+    function showLoginForm() {
+      checkingCard.style.display = "none";
+      loggedInCard.style.display = "none";
+      formCard.style.display = "";
+    }
+
+    async function checkSession() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (res.ok) {
+          redirectToDashboard(await res.json());
+          return;
+        }
+      } catch (err) {
+        console.error("Session check failed", err);
+      }
+      showLoginForm();
+    }
+
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      hideError();
+
+      if (!form.reportValidity()) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing in…";
+
+      try {
+        await ensureCsrfToken();
+        const csrf = readCookie("XSRF-TOKEN");
+
+        const res = await fetch(`${API_BASE_URL}/login`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            "X-XSRF-TOKEN": csrf || "",
+          },
+          body: JSON.stringify({
+            email: document.getElementById("email").value.trim(),
+            password: document.getElementById("password").value,
+          }),
+        });
+
+        if (res.status === 429) {
+          const data = await res.json().catch(() => ({}));
+          showError(data.detail || "Too many attempts. Please wait and try again.");
+          return;
+        }
+        if (!res.ok) {
+          // Laravel's ValidationException (422) returns { errors: { email: [...] } };
+          // our custom 429 above returns { detail: "..." }. Handle both shapes.
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors?.email?.[0] || data.detail || data.message || "Incorrect email or password.";
+          showError(message);
+          return;
+        }
+
+        const user = await res.json();
+        document.getElementById("password").value = "";
+        redirectToDashboard(user);
+      } catch (err) {
+        console.error("Login failed", err);
+        showError(`Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
+      }
+    });
+
+    ensureCsrfToken();
+    checkSession();
+  </script>
+
+</body>
+
+</html>

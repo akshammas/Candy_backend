@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Add Product | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .form-section { padding: 50px 0 80px; }
+    .form-card {
+      background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      padding: 36px 40px; max-width: 780px; margin: 0 auto;
+    }
+    .form-card h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .subtext { color: #6c757d; margin-bottom: 26px; font-size: .95rem; }
+
+    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 20px; }
+    .pform label:first-of-type { margin-top: 0; }
+    .pform .field-hint { font-weight: 400; color: #6c757d; font-size: .82rem; }
+    .pform .form-control, .pform .form-select {
+      padding: 11px 14px; border-radius: 10px; border: 1.5px solid #dcdfe4;
+    }
+    .pform .form-control:focus, .pform .form-select:focus {
+      border-color: var(--accent-color, #0d6efd);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
+    }
+
+    .drop-zone {
+      border: 2px dashed #dcdfe4; border-radius: 12px; padding: 34px; text-align: center;
+      color: #8a8f98; cursor: pointer; margin-top: 8px; transition: border-color .15s, background .15s, color .15s;
+    }
+    .drop-zone p { margin: 0; font-size: .92rem; }
+    .drop-zone:hover, .drop-zone-active {
+      border-color: var(--accent-color, #0d6efd); color: var(--accent-color, #0d6efd);
+      background: color-mix(in srgb, var(--accent-color, #0d6efd) 6%, transparent);
+    }
+
+    .image-previews { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+    .image-preview {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px;
+      border: 2px solid transparent; border-radius: 10px; padding: 6px; background: #f8f9fb;
+    }
+    .image-preview:has(input:checked) {
+      border-color: var(--accent-color, #0d6efd);
+      background: color-mix(in srgb, var(--accent-color, #0d6efd) 8%, transparent);
+    }
+    .image-preview img { width: 92px; height: 92px; object-fit: cover; border-radius: 8px; }
+    .image-preview-radio { display: flex; align-items: center; gap: 5px; font-size: .74rem; color: #555; cursor: pointer; }
+    .image-preview-remove {
+      position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+      border: none; background: #b3261e; color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
+    }
+
+    .form-error {
+      background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
+      font-size: .9rem; margin-bottom: 18px; display: none;
+    }
+    .form-actions { display: flex; gap: 12px; margin-top: 30px; }
+    .btn-save {
+      background: var(--accent-color, #0d6efd); color: #fff; border: none;
+      padding: 13px 30px; border-radius: 50px; font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 8px 22px rgba(0,0,0,.18);
+    }
+    .btn-save:hover:not(:disabled) { transform: translateY(-2px); color: #fff; }
+    .btn-save:disabled { opacity: .7; cursor: not-allowed; }
+    .btn-cancel {
+      background: #fff; color: #212529; border: 1.5px solid #dcdfe4; padding: 13px 26px;
+      border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
+    }
+    .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
+    .form-status { text-align: center; padding: 60px 0; color: #6c757d; }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li class="breadcrumb-item active current">Add Product</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1>Add a New Product</h1>
+        <p>Add a product to the catalog.</p>
+      </div>
+    </div>
+
+    <section class="form-section">
+      <div class="container" id="page-root" style="display:none;">
+        <div class="form-card">
+          <h1>Product details</h1>
+          <p class="subtext">Fields marked required must be filled in before saving.</p>
+
+          <div class="form-error" id="form-error"></div>
+
+          <form id="product-form" class="pform" novalidate>
+            <label for="name">Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" required>
+
+            <label for="category_select">Category</label>
+            <select class="form-select" id="category_select">
+              <option value="" selected>No category</option>
+              <option value="Sleep Audio Solutions">Sleep Audio Solutions</option>
+              <option value="Everyday Audio Series">Everyday Audio Series</option>
+              <option value="Gaming Audio Series">Gaming Audio Series</option>
+              <option value="Innovation Series">Innovation Series</option>
+              <option value="Charging Solutions">Charging Solutions</option>
+            </select>
+
+            <label for="summary">Summary <span class="field-hint">(short line for the listing card)</span></label>
+            <input type="text" class="form-control" id="summary" maxlength="500">
+
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="6"></textarea>
+
+            <label for="images">Images</label>
+            <div id="drop-zone" class="drop-zone">
+              <p>Drag &amp; drop images here, or click to browse</p>
+            </div>
+            <input type="file" id="images" accept="image/*" multiple style="display:none;">
+            <p class="field-hint">
+              Drag files in, or click the box to open the picker (open it again to add more).
+              Click a thumbnail's radio to mark it as the primary photo. Click × to remove one.
+            </p>
+            <div id="image-previews" class="image-previews"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-save" id="save-btn">Save product</button>
+              <a href="admin-dashboard.html" class="btn-cancel">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="form-status" id="form-status">Checking session…</div>
+
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       Talks to the Laravel backend (same conventions as login.html /
+       admin-dashboard.html — Sanctum SPA cookie auth):
+       - GET  /api/user              confirms an admin session
+       - POST /api/admin/products    multipart/form-data, creates the product
+
+       The category dropdown sends a plain "category_name" string —
+       the backend resolves/creates the Category row itself
+       (Api\Admin\ProductController::resolveCategoryId), so there's no
+       separate category-lookup request to get wrong here.
+
+       All state-changing requests need the X-XSRF-TOKEN header set from
+       the XSRF-TOKEN cookie Sanctum issues — same pattern as login.html.
+       ============================================================ -->
+  <script>
+    const API_BASE_URL = ""; // same-origin now — Laravel serves this file directly
+
+    const pageRoot = document.getElementById("page-root");
+    const statusEl = document.getElementById("form-status");
+    const errorBox = document.getElementById("form-error");
+    const form = document.getElementById("product-form");
+    const saveBtn = document.getElementById("save-btn");
+
+    const categorySelect = document.getElementById("category_select");
+
+    const imagesInput = document.getElementById("images");
+    const dropZone = document.getElementById("drop-zone");
+    const previewContainer = document.getElementById("image-previews");
+
+    let selectedFiles = [];
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+    function hideError() {
+      errorBox.style.display = "none";
+    }
+
+    function fileKey(file) {
+      return `${file.name}-${file.size}-${file.lastModified}`;
+    }
+
+    function addFiles(newFiles) {
+      const imageFiles = newFiles.filter((f) => f.type.startsWith("image/"));
+      const existingKeys = new Set(selectedFiles.map(fileKey));
+      const filtered = imageFiles.filter((f) => !existingKeys.has(fileKey(f)));
+      selectedFiles = selectedFiles.concat(filtered);
+      renderPreviews();
+    }
+
+    function renderPreviews() {
+      previewContainer.innerHTML = "";
+      selectedFiles.forEach((file, index) => {
+        const url = URL.createObjectURL(file);
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-preview";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "image-preview-remove";
+        removeBtn.textContent = "\u00d7";
+        removeBtn.setAttribute("aria-label", "Remove image");
+        removeBtn.addEventListener("click", () => {
+          selectedFiles.splice(index, 1);
+          renderPreviews();
+        });
+
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = file.name;
+
+        const radioLabel = document.createElement("label");
+        radioLabel.className = "image-preview-radio";
+
+        const radio = document.createElement("input");
+        radio.type = "radio";
+        radio.name = "primary_index";
+        radio.value = index;
+        if (index === 0) radio.checked = true;
+
+        const caption = document.createElement("span");
+        caption.textContent = "Primary";
+
+        radioLabel.appendChild(radio);
+        radioLabel.appendChild(caption);
+        wrapper.appendChild(removeBtn);
+        wrapper.appendChild(img);
+        wrapper.appendChild(radioLabel);
+        previewContainer.appendChild(wrapper);
+      });
+    }
+
+    dropZone.addEventListener("click", () => imagesInput.click());
+    imagesInput.addEventListener("change", () => addFiles(Array.from(imagesInput.files)));
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.add("drop-zone-active");
+      });
+    });
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.remove("drop-zone-active");
+      });
+    });
+    dropZone.addEventListener("drop", (event) => addFiles(Array.from(event.dataTransfer.files)));
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideError();
+
+      if (!form.reportValidity()) return;
+
+      const primaryChecked = previewContainer.querySelector('input[name="primary_index"]:checked');
+      const primaryIndex = primaryChecked ? primaryChecked.value : 0;
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving…";
+
+      try {
+        await ensureCsrfToken();
+
+        const fd = new FormData();
+        fd.append("name", document.getElementById("name").value.trim());
+        fd.append("category_name", categorySelect.value); // resolved/created server-side
+        fd.append("summary", document.getElementById("summary").value.trim());
+        fd.append("description", document.getElementById("description").value.trim());
+        fd.append("primary_index", primaryIndex);
+        selectedFiles.forEach((file) => fd.append("images[]", file));
+
+        const res = await fetch(`${API_BASE_URL}/api/admin/products`, {
+          method: "POST",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+            "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "",
+          },
+          body: fd,
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save the product. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
+
+        window.location.href = "admin-dashboard.html";
+      } catch (err) {
+        console.error("Save failed", err);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save product";
+      }
+    });
+
+    async function init() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "login.html";
+          return;
+        }
+        statusEl.style.display = "none";
+        pageRoot.style.display = "";
+        await ensureCsrfToken();
+      } catch (err) {
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+
+</html>

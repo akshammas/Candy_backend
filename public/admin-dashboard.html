@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Admin Dashboard | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .dash-section { padding: 50px 0 80px; }
+    .dash-toolbar {
+      display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+      gap: 16px; margin-bottom: 28px;
+    }
+    .dash-toolbar .user-chip {
+      display: flex; align-items: center; gap: 10px; color: #6c757d; font-size: .9rem;
+    }
+    .dash-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+    .btn-dash {
+      display: inline-flex; align-items: center; gap: 8px; text-decoration: none;
+      padding: 10px 20px; border-radius: 50px; font-weight: 600; font-size: .9rem;
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .btn-dash-primary { background: var(--accent-color, #0d6efd); color: #fff; box-shadow: 0 6px 16px rgba(0,0,0,.15); }
+    .btn-dash-primary:hover { transform: translateY(-2px); color: #fff; }
+    .btn-dash-outline { background: #fff; color: #212529; border: 1.5px solid #dcdfe4; }
+    .btn-dash-outline:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
+
+    .dash-table-wrap { background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06); overflow: hidden; }
+    table.dash-table { width: 100%; border-collapse: collapse; }
+    .dash-table th {
+      text-align: left; padding: 16px 20px; font-size: .78rem; text-transform: uppercase;
+      letter-spacing: .05em; color: #6c757d; border-bottom: 1px solid #eceef1; background: #f8f9fb;
+    }
+    .dash-table td { padding: 16px 20px; border-bottom: 1px solid #f1f3f6; font-size: .92rem; vertical-align: middle; }
+    .dash-table tr:last-child td { border-bottom: none; }
+    .dash-thumb { width: 48px; height: 48px; border-radius: 8px; object-fit: cover; background: #f1f3f6; }
+    .dash-thumb-empty {
+      width: 48px; height: 48px; border-radius: 8px; background: #f1f3f6;
+      display: flex; align-items: center; justify-content: center; color: #adb5bd; font-size: .7rem;
+    }
+    .dash-category-pill {
+      display: inline-block; background: #f1f3f6; color: #495057; font-size: .78rem;
+      padding: 4px 12px; border-radius: 50px;
+    }
+    .dash-row-actions a { font-size: .85rem; font-weight: 600; margin-right: 14px; text-decoration: none; }
+    .dash-row-actions a.edit-link { color: var(--accent-color, #0d6efd); }
+    .dash-row-actions a.delete-link { color: #b3261e; }
+    .dash-status { text-align: center; padding: 60px 0; color: #6c757d; }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item active current">Admin Dashboard</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1>Admin Dashboard</h1>
+        <p>Manage the product catalog.</p>
+      </div>
+    </div>
+
+    <section class="dash-section">
+      <div class="container" id="dash-root" style="display:none;">
+
+        <div class="dash-toolbar">
+          <div class="user-chip">
+            <i class="bi bi-person-circle"></i>
+            <span id="user-chip-text">Signed in</span>
+          </div>
+          <div class="dash-actions">
+            <a href="#" id="add-product-link" class="btn-dash btn-dash-primary"><i class="bi bi-plus-lg"></i> Add product</a>
+            <a href="#" id="manage-ads-link" class="btn-dash btn-dash-outline"><i class="bi bi-megaphone"></i> Manage ads</a>
+            <a href="#" id="manage-admins-link" class="btn-dash btn-dash-outline"><i class="bi bi-people"></i> Manage admins</a>
+            <button type="button" id="logout-btn" class="btn-dash btn-dash-outline"><i class="bi bi-box-arrow-right"></i> Sign out</button>
+          </div>
+        </div>
+
+        <div class="dash-table-wrap">
+          <table class="dash-table">
+            <thead>
+              <tr>
+                <th></th>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Summary</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="product-rows"></tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <div class="dash-status" id="dash-status">Checking session…</div>
+
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       This page is fully static — no server-side templating. It:
+       1. Confirms there's a valid admin session via /api/user
+          (redirects to login.html if not — same guard the backend
+          itself enforces on /admin/*, this is just so the page
+          doesn't flash empty content first).
+       2. Lists products from the existing public /api/products
+          endpoint (no new backend route needed for that).
+       3. Add/Edit/Delete/Manage-ads/Manage-admins still go to the
+          backend's existing server-rendered /admin/* form pages —
+          those aren't JSON endpoints yet, so this links out to them
+          as normal same-origin navigations (the session cookie set
+          at login carries over automatically).
+       ============================================================ -->
+  <script>
+    // TODO: set this to wherever the FastAPI app is actually deployed.
+    const API_BASE_URL = ""; // same-origin now — Laravel serves this file directly
+
+    const dashRoot = document.getElementById("dash-root");
+    const statusEl = document.getElementById("dash-status");
+    const rowsEl = document.getElementById("product-rows");
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function productRowHTML(product) {
+      const thumb = product.primary_image
+        ? `<img class="dash-thumb" src="${product.primary_image.url}" alt="${escapeHtml(product.name)}">`
+        : `<div class="dash-thumb-empty">—</div>`;
+      const category = product.category
+        ? `<span class="dash-category-pill">${escapeHtml(product.category.name)}</span>`
+        : "";
+
+      return `
+        <tr>
+          <td>${thumb}</td>
+          <td>${escapeHtml(product.name)}</td>
+          <td>${category}</td>
+          <td>${escapeHtml(product.summary || "")}</td>
+          <td class="dash-row-actions">
+            <a class="edit-link" href="edit_product.html?id=${product.id}">Edit</a>
+            <a class="delete-link" href="#" data-id="${product.id}" data-name="${escapeHtml(product.name)}">Delete</a>
+          </td>
+        </tr>`;
+    }
+
+    async function loadProducts() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/products`);
+        const data = await res.json();
+        const products = data.products || [];
+
+        rowsEl.innerHTML = products.length
+          ? products.map(productRowHTML).join("")
+          : `<tr><td colspan="5" class="text-center text-muted py-4">No products yet.</td></tr>`;
+
+        // Edit is now a plain link to edit_product.html?id=... (no JS needed
+        // here) — delete is the one that acts immediately in-place below.
+
+        rowsEl.querySelectorAll(".delete-link").forEach((link) => {
+          link.addEventListener("click", async (e) => {
+            e.preventDefault();
+            const { id, name } = link.dataset;
+            if (!confirm(`Delete "${name}"?`)) return;
+
+            try {
+              await ensureCsrfToken();
+              const csrf = readCookie("XSRF-TOKEN");
+              const res = await fetch(`${API_BASE_URL}/api/admin/products/${id}`, {
+                method: "DELETE",
+                credentials: "include",
+                headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
+              });
+              if (!res.ok) throw new Error(`HTTP ${res.status}`);
+              await loadProducts();
+            } catch (err) {
+              console.error("Delete failed", err);
+              alert("Couldn't delete that product.");
+            }
+          });
+        });
+      } catch (err) {
+        console.error("Failed to load products", err);
+        rowsEl.innerHTML = `<tr><td colspan="5" class="text-center text-muted py-4">Couldn't load products.</td></tr>`;
+      }
+    }
+
+    async function init() {
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "login.html";
+          return;
+        }
+        const user = await res.json();
+
+        document.getElementById("user-chip-text").textContent = `Signed in as ${user.name || user.email}`;
+
+        document.getElementById("add-product-link").href = "add_product.html";
+        document.getElementById("manage-ads-link").href = "manage_ads.html";
+
+        // Manage admins still needs a dedicated form built against the
+        // ready-and-waiting POST /api/admin/users endpoint.
+        document.getElementById("manage-admins-link").addEventListener("click", (e) => {
+          e.preventDefault();
+          alert("This form isn't built yet — the backend endpoint is ready and waiting for it.");
+        });
+
+        statusEl.style.display = "none";
+        dashRoot.style.display = "";
+
+        await ensureCsrfToken();
+        await loadProducts();
+      } catch (err) {
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
+      }
+    }
+
+    document.getElementById("logout-btn").addEventListener("click", async () => {
+      try {
+        const csrf = readCookie("XSRF-TOKEN");
+        await fetch(`${API_BASE_URL}/logout`, {
+          method: "POST",
+          credentials: "include",
+          headers: { "X-XSRF-TOKEN": csrf || "", "Accept": "application/json" },
+        });
+      } catch (err) {
+        console.error("Logout failed", err);
+      }
+      window.location.href = "login.html";
+    });
+
+    init();
+  </script>
+
+</body>
+
+</html>

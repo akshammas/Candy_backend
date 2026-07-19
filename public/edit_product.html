@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Edit Product | C&amp;Y Material Limited</title>
+  <meta name="robots" content="noindex, nofollow">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .form-section { padding: 50px 0 80px; }
+    .form-card {
+      background: #fff; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,.06);
+      padding: 36px 40px; max-width: 780px; margin: 0 auto;
+    }
+    .form-card h1 { font-size: 1.5rem; font-weight: 700; margin-bottom: 6px; }
+    .form-card .subtext { color: #6c757d; margin-bottom: 26px; font-size: .95rem; }
+
+    .pform label { font-weight: 600; font-size: .9rem; margin-bottom: 6px; display: block; margin-top: 20px; }
+    .pform label:first-of-type { margin-top: 0; }
+    .pform .field-hint { font-weight: 400; color: #6c757d; font-size: .82rem; }
+    .pform .form-control, .pform .form-select {
+      padding: 11px 14px; border-radius: 10px; border: 1.5px solid #dcdfe4;
+    }
+    .pform .form-control:focus, .pform .form-select:focus {
+      border-color: var(--accent-color, #0d6efd);
+      box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent-color, #0d6efd) 15%, transparent);
+    }
+
+    .existing-images { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 10px; }
+    .existing-image {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      border: 2px solid transparent; border-radius: 10px; padding: 8px; background: #f8f9fb; width: 108px;
+    }
+    .existing-image.is-primary { border-color: var(--accent-color, #0d6efd); background: color-mix(in srgb, var(--accent-color, #0d6efd) 8%, transparent); }
+    .existing-image img { width: 92px; height: 92px; object-fit: cover; border-radius: 8px; }
+    .existing-image .primary-badge { font-size: .68rem; font-weight: 700; color: var(--accent-color, #0d6efd); text-transform: uppercase; letter-spacing: .04em; }
+    .existing-image .set-primary-btn {
+      font-size: .72rem; background: none; border: none; color: #6c757d; text-decoration: underline; cursor: pointer; padding: 0;
+    }
+    .existing-image .set-primary-btn:hover { color: var(--accent-color, #0d6efd); }
+    .existing-image-remove {
+      position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+      border: none; background: #b3261e; color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
+    }
+    .no-existing-images { color: #6c757d; font-size: .88rem; margin-top: 8px; }
+
+    .drop-zone {
+      border: 2px dashed #dcdfe4; border-radius: 12px; padding: 34px; text-align: center;
+      color: #8a8f98; cursor: pointer; margin-top: 8px; transition: border-color .15s, background .15s, color .15s;
+    }
+    .drop-zone p { margin: 0; font-size: .92rem; }
+    .drop-zone:hover, .drop-zone-active {
+      border-color: var(--accent-color, #0d6efd); color: var(--accent-color, #0d6efd);
+      background: color-mix(in srgb, var(--accent-color, #0d6efd) 6%, transparent);
+    }
+
+    .image-previews { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+    .image-preview {
+      position: relative; display: flex; flex-direction: column; align-items: center; gap: 5px;
+      border: 2px solid transparent; border-radius: 10px; padding: 6px; background: #f8f9fb;
+    }
+    .image-preview img { width: 92px; height: 92px; object-fit: cover; border-radius: 8px; }
+    .image-preview-remove {
+      position: absolute; top: -8px; right: -8px; width: 22px; height: 22px; border-radius: 50%;
+      border: none; background: #b3261e; color: #fff; cursor: pointer; line-height: 1; font-size: 14px;
+    }
+
+    .form-error {
+      background: #fdecea; color: #b3261e; border-radius: 10px; padding: 12px 16px;
+      font-size: .9rem; margin-bottom: 18px; display: none;
+    }
+    .form-actions { display: flex; gap: 12px; margin-top: 30px; }
+    .btn-save {
+      background: var(--accent-color, #0d6efd); color: #fff; border: none;
+      padding: 13px 30px; border-radius: 50px; font-weight: 600;
+      transition: transform .2s ease, box-shadow .2s ease; box-shadow: 0 8px 22px rgba(0,0,0,.18);
+    }
+    .btn-save:hover:not(:disabled) { transform: translateY(-2px); color: #fff; }
+    .btn-save:disabled { opacity: .7; cursor: not-allowed; }
+    .btn-cancel {
+      background: #fff; color: #212529; border: 1.5px solid #dcdfe4; padding: 13px 26px;
+      border-radius: 50px; font-weight: 600; text-decoration: none; transition: border-color .2s ease;
+    }
+    .btn-cancel:hover { border-color: var(--accent-color, #0d6efd); color: #212529; }
+    .form-status { text-align: center; padding: 60px 0; color: #6c757d; }
+  </style>
+</head>
+
+<body class="starter-page-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center me-auto me-xl-0">
+        <img src="assets/img/nav_logo2.png" alt="C&amp;Y Material Limited">
+      </a>
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html#hero">Home</a></li>
+          <li><a href="products.html">Products</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main">
+
+    <div class="page-title">
+      <div class="breadcrumbs">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html"><i class="bi bi-house"></i> Home</a></li>
+            <li class="breadcrumb-item"><a href="admin-dashboard.html">Admin Dashboard</a></li>
+            <li class="breadcrumb-item active current">Edit Product</li>
+          </ol>
+        </nav>
+      </div>
+      <div class="title-wrapper">
+        <h1 id="page-heading">Edit Product</h1>
+        <p>Update this product's details, photos, and category.</p>
+      </div>
+    </div>
+
+    <section class="form-section">
+      <div class="container" id="page-root" style="display:none;">
+        <div class="form-card">
+          <h1>Product details</h1>
+          <p class="subtext">Fields marked required must be filled in before saving.</p>
+
+          <div class="form-error" id="form-error"></div>
+
+          <form id="product-form" class="pform" novalidate>
+            <label for="name">Name <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" id="name" required>
+
+            <label for="category_select">Category</label>
+            <select class="form-select" id="category_select">
+              <option value="">No category</option>
+              <option value="Sleep Audio Solutions">Sleep Audio Solutions</option>
+              <option value="Everyday Audio Series">Everyday Audio Series</option>
+              <option value="Gaming Audio Series">Gaming Audio Series</option>
+              <option value="Innovation Series">Innovation Series</option>
+              <option value="Charging Solutions">Charging Solutions</option>
+            </select>
+
+            <label for="summary">Summary <span class="field-hint">(short line for the listing card)</span></label>
+            <input type="text" class="form-control" id="summary" maxlength="500">
+
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" rows="6"></textarea>
+
+            <label>Existing images</label>
+            <div id="existing-images" class="existing-images"></div>
+            <p id="no-existing-images" class="no-existing-images" style="display:none;">No images yet — add some below.</p>
+
+            <label for="images">Add new images</label>
+            <div id="drop-zone" class="drop-zone">
+              <p>Drag &amp; drop images here, or click to browse</p>
+            </div>
+            <input type="file" id="images" accept="image/*" multiple style="display:none;">
+            <p class="field-hint">
+              New uploads are added to the gallery. If the product has no primary photo yet,
+              the first new upload becomes primary automatically — otherwise use "Set primary"
+              on an existing image above.
+            </p>
+            <div id="image-previews" class="image-previews"></div>
+
+            <div class="form-actions">
+              <button type="submit" class="btn-save" id="save-btn">Save changes</button>
+              <a href="admin-dashboard.html" class="btn-cancel">Cancel</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div class="form-status" id="form-status">Checking session…</div>
+
+    </section>
+
+  </main>
+
+  <footer id="footer" class="footer light-background">
+    <div class="container footer-bottom">
+      <div class="row gy-3">
+        <div class="col-12 text-center">
+          <div class="copyright">
+            <p>© <span>Copyright</span> <strong class="sitename">C&amp;Y Material Limited</strong>. All Rights Reserved.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <!-- ============================================================
+       Same conventions as add_product.html (Sanctum SPA cookie auth):
+       - GET    /api/user                                    confirm session
+       - GET    /api/products/{id}                            load current data (public endpoint, already has everything needed)
+       - POST   /api/admin/products/{id}                      save changes (Laravel + multipart -> POST, not PATCH)
+       - DELETE /api/admin/products/{id}/images/{imageId}      remove an existing image
+       - POST   /api/admin/products/{id}/images/{imageId}/primary   set an existing image as primary
+       Existing-image actions (delete / set primary) fire immediately on
+       click rather than waiting for the main form save — keeps the gallery
+       state on screen always matching what's actually in the database.
+       ============================================================ -->
+  <script>
+    const API_BASE_URL = ""; // same-origin now — Laravel serves this file directly
+
+    const productId = new URLSearchParams(window.location.search).get("id");
+
+    const pageRoot = document.getElementById("page-root");
+    const statusEl = document.getElementById("form-status");
+    const errorBox = document.getElementById("form-error");
+    const form = document.getElementById("product-form");
+    const saveBtn = document.getElementById("save-btn");
+
+    const categorySelect = document.getElementById("category_select");
+    const existingImagesEl = document.getElementById("existing-images");
+    const noExistingImagesEl = document.getElementById("no-existing-images");
+
+    const imagesInput = document.getElementById("images");
+    const dropZone = document.getElementById("drop-zone");
+    const previewContainer = document.getElementById("image-previews");
+
+    let selectedFiles = [];
+
+    function escapeHtml(str) {
+      if (!str) return "";
+      return str.replace(/[&<>"']/g, (c) => ({
+        "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;"
+      }[c]));
+    }
+
+    function readCookie(name) {
+      const match = document.cookie.match(new RegExp("(^| )" + name + "=([^;]+)"));
+      return match ? decodeURIComponent(match[2]) : null;
+    }
+
+    async function ensureCsrfToken() {
+      if (readCookie("XSRF-TOKEN")) return;
+      await fetch(`${API_BASE_URL}/sanctum/csrf-cookie`, { credentials: "include" });
+    }
+
+    function authHeaders(extra = {}) {
+      return { "X-XSRF-TOKEN": readCookie("XSRF-TOKEN") || "", Accept: "application/json", ...extra };
+    }
+
+    function showError(message) {
+      errorBox.textContent = message;
+      errorBox.style.display = "block";
+    }
+    function hideError() {
+      errorBox.style.display = "none";
+    }
+
+    // ---------- existing images (delete / set primary act immediately) ----------
+
+    function renderExistingImages(images) {
+      existingImagesEl.innerHTML = "";
+      noExistingImagesEl.style.display = images.length ? "none" : "";
+
+      images.forEach((image) => {
+        const wrapper = document.createElement("div");
+        wrapper.className = "existing-image" + (image.is_primary ? " is-primary" : "");
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "existing-image-remove";
+        removeBtn.textContent = "\u00d7";
+        removeBtn.setAttribute("aria-label", "Delete image");
+        removeBtn.addEventListener("click", () => deleteExistingImage(image.id));
+
+        const img = document.createElement("img");
+        img.src = image.url;
+        img.alt = image.alt_text || "";
+
+        wrapper.appendChild(removeBtn);
+        wrapper.appendChild(img);
+
+        if (image.is_primary) {
+          const badge = document.createElement("span");
+          badge.className = "primary-badge";
+          badge.textContent = "Primary";
+          wrapper.appendChild(badge);
+        } else {
+          const setPrimaryBtn = document.createElement("button");
+          setPrimaryBtn.type = "button";
+          setPrimaryBtn.className = "set-primary-btn";
+          setPrimaryBtn.textContent = "Set primary";
+          setPrimaryBtn.addEventListener("click", () => setPrimaryImage(image.id));
+          wrapper.appendChild(setPrimaryBtn);
+        }
+
+        existingImagesEl.appendChild(wrapper);
+      });
+    }
+
+    async function reloadProductImages() {
+      const res = await fetch(`${API_BASE_URL}/api/products/${productId}`);
+      if (!res.ok) return;
+      const product = await res.json();
+      renderExistingImages(product.images || []);
+    }
+
+    async function deleteExistingImage(imageId) {
+      if (!confirm("Delete this image?")) return;
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}/images/${imageId}`, {
+          method: "DELETE",
+          credentials: "include",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await reloadProductImages();
+      } catch (err) {
+        console.error("Delete image failed", err);
+        alert("Couldn't delete that image.");
+      }
+    }
+
+    async function setPrimaryImage(imageId) {
+      try {
+        await ensureCsrfToken();
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}/images/${imageId}/primary`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+        });
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        await reloadProductImages();
+      } catch (err) {
+        console.error("Set primary failed", err);
+        alert("Couldn't set that image as primary.");
+      }
+    }
+
+    // ---------- new image staging (same drag/drop pattern as add_product.html) ----------
+
+    function fileKey(file) {
+      return `${file.name}-${file.size}-${file.lastModified}`;
+    }
+
+    function addFiles(newFiles) {
+      const imageFiles = newFiles.filter((f) => f.type.startsWith("image/"));
+      const existingKeys = new Set(selectedFiles.map(fileKey));
+      const filtered = imageFiles.filter((f) => !existingKeys.has(fileKey(f)));
+      selectedFiles = selectedFiles.concat(filtered);
+      renderNewPreviews();
+    }
+
+    function renderNewPreviews() {
+      previewContainer.innerHTML = "";
+      selectedFiles.forEach((file, index) => {
+        const url = URL.createObjectURL(file);
+
+        const wrapper = document.createElement("div");
+        wrapper.className = "image-preview";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.type = "button";
+        removeBtn.className = "image-preview-remove";
+        removeBtn.textContent = "\u00d7";
+        removeBtn.setAttribute("aria-label", "Remove staged image");
+        removeBtn.addEventListener("click", () => {
+          selectedFiles.splice(index, 1);
+          renderNewPreviews();
+        });
+
+        const img = document.createElement("img");
+        img.src = url;
+        img.alt = file.name;
+
+        wrapper.appendChild(removeBtn);
+        wrapper.appendChild(img);
+        previewContainer.appendChild(wrapper);
+      });
+    }
+
+    dropZone.addEventListener("click", () => imagesInput.click());
+    imagesInput.addEventListener("change", () => addFiles(Array.from(imagesInput.files)));
+
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.add("drop-zone-active");
+      });
+    });
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        dropZone.classList.remove("drop-zone-active");
+      });
+    });
+    dropZone.addEventListener("drop", (event) => addFiles(Array.from(event.dataTransfer.files)));
+
+    // ---------- load + save ----------
+
+    async function loadProduct() {
+      const res = await fetch(`${API_BASE_URL}/api/products/${productId}`);
+      if (!res.ok) {
+        statusEl.textContent = "Product not found.";
+        return;
+      }
+      const product = await res.json();
+
+      document.title = `Edit ${product.name} | C&Y Material Limited`;
+      document.getElementById("page-heading").textContent = `Edit: ${product.name}`;
+      document.getElementById("name").value = product.name || "";
+      document.getElementById("summary").value = product.summary || "";
+      document.getElementById("description").value = product.description || "";
+      categorySelect.value = product.category ? product.category.name : "";
+
+      renderExistingImages(product.images || []);
+
+      statusEl.style.display = "none";
+      pageRoot.style.display = "";
+    }
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideError();
+
+      if (!form.reportValidity()) return;
+
+      saveBtn.disabled = true;
+      saveBtn.textContent = "Saving…";
+
+      try {
+        await ensureCsrfToken();
+
+        const fd = new FormData();
+        fd.append("name", document.getElementById("name").value.trim());
+        fd.append("category_name", categorySelect.value);
+        fd.append("summary", document.getElementById("summary").value.trim());
+        fd.append("description", document.getElementById("description").value.trim());
+        selectedFiles.forEach((file) => fd.append("images[]", file));
+
+        const res = await fetch(`${API_BASE_URL}/api/admin/products/${productId}`, {
+          method: "POST",
+          credentials: "include",
+          headers: authHeaders(),
+          body: fd,
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => ({}));
+          const message = data.errors
+            ? Object.values(data.errors).flat().join(" ")
+            : data.message || "Couldn't save changes. Please check the fields and try again.";
+          showError(message);
+          return;
+        }
+
+        window.location.href = "admin-dashboard.html";
+      } catch (err) {
+        console.error("Save failed", err);
+        showError(err.message || `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`);
+      } finally {
+        saveBtn.disabled = false;
+        saveBtn.textContent = "Save changes";
+      }
+    });
+
+    async function init() {
+      if (!productId) {
+        statusEl.textContent = "No product specified.";
+        return;
+      }
+
+      try {
+        const res = await fetch(`${API_BASE_URL}/api/user`, { credentials: "include" });
+        if (!res.ok) {
+          window.location.href = "login.html";
+          return;
+        }
+        await ensureCsrfToken();
+        await loadProduct();
+      } catch (err) {
+        console.error("Session check failed", err);
+        statusEl.textContent = `Couldn't reach the server. Is the API running at ${API_BASE_URL}?`;
+      }
+    }
+
+    init();
+  </script>
+
+</body>
+
+</html>
