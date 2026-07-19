@@ -48,6 +48,9 @@ class UserController extends Controller
             $user->password = Hash::make($data['password']);
         }
         if (array_key_exists('is_active', $data)) {
+            if ($request->user()->id === $user->id && !$data['is_active']) {
+                return response()->json(['detail' => "You can't deactivate your own account."], 422);
+            }
             $user->is_active = $data['is_active'];
         }
         $user->save();

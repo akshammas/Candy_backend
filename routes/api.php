@@ -29,6 +29,7 @@ Route::middleware('auth:sanctum')->prefix('admin')->group(function () {
 
     Route::post('/ads', [AdminAdController::class, 'store']);
     Route::post('/ads/reorder', [AdminAdController::class, 'reorder']);
+    Route::post('/ads/{id}', [AdminAdController::class, 'update']); // Laravel + multipart -> POST, not PUT
     Route::delete('/ads/{id}', [AdminAdController::class, 'destroy']);
 
     Route::get('/users', [AdminUserController::class, 'index']);

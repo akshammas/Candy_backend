@@ -12,6 +12,8 @@ class Advertisement extends Model
 
     protected $fillable = ['product_id', 'image_path', 'caption', 'button_text', 'sort_order'];
 
+    protected $appends = ['image_url'];
+
     public function product(): BelongsTo
     {
         return $this->belongsTo(Product::class);
